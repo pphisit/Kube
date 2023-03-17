@@ -75,7 +75,7 @@ kubectl get po -l app.kubernetes.io/name=traefik
 ```
 
 
-### Dry run to create a secret deployment.
+ Dry run to create a secret deployment.
 * สร้างไฟล์ dashboard-secret.yaml
 ```
 kubectl create secret generic -n traefik dashboard-auth-secret \
@@ -87,6 +87,56 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
 ```
 
 * นำ namespace ที่ตั้งใส่ในไฟล์ traefik-dashboard.yaml,rancher-deployment.yaml,dashboard-secret.yaml
+
+## สร้างไฟล์ .yaml
+* traefik-dashboard.yaml
+    <details>
+    <summary>แสดงโค้ด</summary>
+        ```
+
+            apiVersion: traefik.containo.us/v1alpha1
+            kind: Middleware
+            metadata:
+            name: traefik-basic-authen
+            namespace: spcn29
+            spec:
+            basicAuth:
+                secret: dashboard-auth-secret
+                removeHeader: true
+
+            apiVersion: v1
+            data:
+            users: dXNlcjokMnkkMDUkQmZxLk9Kd25Nb05NRkxPYlA1NWNndXZFcHloQjZ6Smo2TWFua2lQYkJ3Qk52TE1haHpHdWEKCg==
+            kind: Secret
+            metadata:
+            name: dashboard-auth-secret
+            namespace: spcn29
+
+            apiVersion: traefik.containo.us/v1alpha1
+            kind: IngressRoute
+            metadata:
+            name: traefik-dashboard
+            namespace: spcn29
+            annotations:
+                kubernetes.io/ingress.class: traefik
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-basic-authen
+            spec:
+            entryPoints:
+                - websecure
+            routes:
+                - match: Host(`traefik.spcn29.local`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+                kind: Rule
+                middlewares:
+                    - name: traefik-basic-authen
+                    namespace: spcn29
+                services:
+                    - name: api@internal
+                    kind: TraefikService     
+        
+        ```
+    </details>
+
+* rancher-deployment.yaml
 #### ตั้ง Hosts File
 ```
 sudo nano /etc/hosts
