@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: traefik-basic-authen
-  namespace: spcn29
+  namespace: default
 spec:
   basicAuth:
     secret: dashboard-auth-secret
@@ -10,17 +10,17 @@ spec:
 ---
 apiVersion: v1
 data:
-  users: dXNlcjokMnkkMDUkUGlRTW1EUld2VTZSaFgyZVZjNjFTdUovcU1ucFFnOXp2WGpSSmN0NDguc2N3VElMYkZGYy4KCg==
+  users: dXNlcjokMnkkMDUkWi81VUc3MzdiZjJVY3NqYnpCcllVZS5RM0dDWS53SDR2VzZpZnA2eUttN2hRUy51RmRCblcKCg==
 kind: Secret
 metadata:
   name: dashboard-auth-secret
-  namespace: spcn29
+  namespace: default
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
-  namespace: spcn29
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.middlewares: traefik-basic-authen
@@ -32,9 +32,7 @@ spec:
       kind: Rule
       middlewares:
         - name: traefik-basic-authen
-          namespace: spcn29
+          namespace: default
       services:
         - name: api@internal
           kind: TraefikService
-
-          #dashboard

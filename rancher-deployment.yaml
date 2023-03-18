@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rancher-deployment
-  namespace: spcn29
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -25,7 +25,7 @@ metadata:
   name: rancher-service
   labels:
     name: rancher-service
-  namespace: spcn29
+  namespace: default
 spec:
   selector:
     app: rancher
@@ -39,7 +39,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-ingress
-  namespace: spcn29
+  namespace: default
 spec:
   entryPoints:
     - web

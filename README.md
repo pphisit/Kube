@@ -103,7 +103,7 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
             kind: Middleware
             metadata:
             name: traefik-basic-authen
-            namespace: spcn29
+            namespace: default
             spec:
             basicAuth:
                 secret: dashboard-auth-secret
@@ -114,13 +114,13 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
             kind: Secret
             metadata:
             name: dashboard-auth-secret
-            namespace: spcn29
+            namespace: default
 
             apiVersion: traefik.containo.us/v1alpha1
             kind: IngressRoute
             metadata:
             name: traefik-dashboard
-            namespace: spcn29
+            namespace: default
             annotations:
                 kubernetes.io/ingress.class: traefik
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-basic-authen
@@ -132,7 +132,7 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
                 kind: Rule
                 middlewares:
                     - name: traefik-basic-authen
-                    namespace: spcn29
+                    namespace: default
                 services:
                     - name: api@internal
                     kind: TraefikService     
@@ -147,7 +147,7 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
         kind: Deployment
         metadata:
         name: rancher-deployment
-        namespace: spcn29
+        namespace: default
         spec:
         replicas: 1
         selector:
@@ -170,7 +170,7 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
         name: rancher-service
         labels:
             name: rancher-service
-        namespace: spcn29
+        namespace: default
         spec:
         selector:
             app: rancher
@@ -184,7 +184,7 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
         kind: IngressRoute
         metadata:
         name: traefik-ingress
-        namespace: spcn29
+        namespace: default
         spec:
         entryPoints:
             - web
@@ -219,5 +219,7 @@ kubectl apply -f .
 ```
 ## ผลลัพธ์
 ![](https://user-images.githubusercontent.com/109591322/225971304-e839ff2d-4365-4b26-941e-77cb27adf779.png)
+
+![](https://user-images.githubusercontent.com/109591322/226116974-21ee6074-4fb8-43ae-bb0b-1078db55f0a3.png)
+![](https://user-images.githubusercontent.com/109591322/226116967-3b910bdd-1315-46c7-9111-91b83313ac8a.png)
 ![](https://user-images.githubusercontent.com/109591322/225971314-a714277c-041b-492f-82e6-b28101954822.png)
-![](https://user-images.githubusercontent.com/109591322/225971295-f5ba9784-8f6c-4523-b266-6bb55f4a74c8.png)
