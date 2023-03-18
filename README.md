@@ -1,7 +1,17 @@
 # wakatime
 * https://wakatime.com/@spcn29/projects/kyzcolykln
+---
+* [ติดตั้ง kubectl on macOS](https://github.com/pphisit/Kube#%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-kubectl-on-macos)
 
+* [ติดตั้ง minikube](https://github.com/pphisit/Kube#%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-minikube)
 
+* [ติดตั้ง Docker Desktop](https://github.com/pphisit/Kube#%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-docker-desktop)
+* [เริ่มต้นการใช้งานคลัสเตอร์](https://github.com/pphisit/Kube#%E0%B9%80%E0%B8%A3%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A5%E0%B8%B1%E0%B8%AA%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C)
+* [ติดตั้ง Traefik](https://github.com/pphisit/Kube#%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-traefik)
+* [สร้างไฟล์ .yaml](https://github.com/pphisit/Kube#%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B9%84%E0%B8%9F%E0%B8%A5%E0%B9%8C-yaml)
+* [Deploy](https://github.com/pphisit/Kube#deploy)
+* [ผลลัพธ์](https://github.com/pphisit/Kube#%E0%B8%9C%E0%B8%A5%E0%B8%A5%E0%B8%B1%E0%B8%9E%E0%B8%98%E0%B9%8C)
+---
 ## ติดตั้ง kubectl on macOS
 1. ดาวน์โหลด kubectl
     ```
