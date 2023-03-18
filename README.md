@@ -95,12 +95,14 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
 --from-file=users=auth-secret -o yaml --dry-run=client | tee dashboard-secret.yaml
 ```
 * คัดลอง user ที่อยู่ในไฟล์ dashboard-secret.yaml ใส่ใน user ของไฟล์ traefik-dashboard.yaml
-#### กำหนด namespace
-```
-./traefik-setup.sh
-```
 
-* นำ namespace ที่ตั้งใส่ในไฟล์ traefik-dashboard.yaml,rancher-deployment.yaml,dashboard-secret.yaml
+### กรณีที่เปลี่ยน namespace
+ #### กำหนด namespace
+```
+    ./traefik-setup.sh
+ ```
+
+ * นำ namespace ที่ตั้งใส่ในไฟล์ traefik-dashboard.yaml,rancher-deployment.yaml,dashboard-secret.yaml
 
 ## สร้างไฟล์ .yaml
 * traefik-dashboard.yaml
