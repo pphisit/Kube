@@ -232,4 +232,5 @@ kubectl apply -f .
 
 ![](https://user-images.githubusercontent.com/109591322/226116974-21ee6074-4fb8-43ae-bb0b-1078db55f0a3.png)
 ![](https://user-images.githubusercontent.com/109591322/226116967-3b910bdd-1315-46c7-9111-91b83313ac8a.png)
+![](https://user-images.githubusercontent.com/109591322/226116981-1068bcd6-1850-4a5d-95ec-f3e0835f2643.png)
 ![](https://user-images.githubusercontent.com/109591322/225971314-a714277c-041b-492f-82e6-b28101954822.png)
