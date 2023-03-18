@@ -1,4 +1,6 @@
-# ขั้นตอนการทำงาน Kube 
+# wakatime
+* https://wakatime.com/@spcn29/projects/kyzcolykln
+
 
 ## ติดตั้ง kubectl on macOS
 1. ดาวน์โหลด kubectl
@@ -19,7 +21,7 @@
 
     sudo install minikube-darwin-arm64 /usr/local/bin/minikube
 ```
-
+![](https://user-images.githubusercontent.com/109591322/226112507-c1103905-112d-4502-91c9-f02ec5b0d0dc.png)
 ## ติดตั้ง Docker Desktop
 * https://www.docker.com/products/docker-desktop/
 ## เริ่มต้นการใช้งานคลัสเตอร์
@@ -27,6 +29,7 @@
 ```
 minikube start --driver=docker
 ```
+![](https://user-images.githubusercontent.com/109591322/226112504-c74c5422-ee81-44e7-a1f5-c9e569fad1c6.png)
 2. Interact with your cluster
 * สำหรับตรวจสอบว่า มีการใช้งานครบทุกตัวหรือป่าว
 ```
@@ -81,6 +84,7 @@ kubectl get po -l app.kubernetes.io/name=traefik
 kubectl create secret generic -n traefik dashboard-auth-secret \
 --from-file=users=auth-secret -o yaml --dry-run=client | tee dashboard-secret.yaml
 ```
+* คัดลอง user ที่อยู่ในไฟล์ dashboard-secret.yaml ใส่ใน user ของไฟล์ traefik-dashboard.yaml
 #### กำหนด namespace
 ```
 ./traefik-setup.sh
@@ -90,9 +94,10 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
 
 ## สร้างไฟล์ .yaml
 * traefik-dashboard.yaml
+
     <details>
     <summary>แสดงโค้ด</summary>
-        ```
+        
 
             apiVersion: traefik.containo.us/v1alpha1
             kind: Middleware
@@ -103,7 +108,6 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
             basicAuth:
                 secret: dashboard-auth-secret
                 removeHeader: true
-
             apiVersion: v1
             data:
             users: dXNlcjokMnkkMDUkQmZxLk9Kd25Nb05NRkxPYlA1NWNndXZFcHloQjZ6Smo2TWFua2lQYkJ3Qk52TE1haHpHdWEKCg==
@@ -132,12 +136,76 @@ kubectl create secret generic -n traefik dashboard-auth-secret \
                 services:
                     - name: api@internal
                     kind: TraefikService     
-        
-        ```
+
     </details>
 
 * rancher-deployment.yaml
+    <details>
+    <summary>แสดงโค้ด</summary>
+
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: rancher-deployment
+        namespace: spcn29
+        spec:
+        replicas: 1
+        selector:
+            matchLabels:
+            app: rancher 
+        template:
+            metadata:
+            labels:
+                app: rancher
+            spec:
+            containers:
+            - name: rancher
+                image: rancher/hello-world
+                ports:
+                - containerPort: 80
+        
+        apiVersion: v1
+        kind: Service
+        metadata:
+        name: rancher-service
+        labels:
+            name: rancher-service
+        namespace: spcn29
+        spec:
+        selector:
+            app: rancher
+        ports:
+        - name: http
+            port: 80
+            protocol: TCP
+            targetPort: 80
+        
+        apiVersion: traefik.containo.us/v1alpha1
+        kind: IngressRoute
+        metadata:
+        name: traefik-ingress
+        namespace: spcn29
+        spec:
+        entryPoints:
+            - web
+            - websecure
+        routes:
+        - match: Host(`web.spcn29.local`)
+            kind: Rule
+            services:
+            - name: rancher-service
+            port: 80
+        
+    </details>
+
 #### ตั้ง Hosts File
+* แสดง ip
+```
+kubectl get svc
+```
+![](https://user-images.githubusercontent.com/109591322/226112500-3049c959-4279-4186-89cb-17b44459dd9f.png)
+* นำ ip ที่ได้มาใส่ได้ไฟล์ hosts 
+* ตั้ง Hosts File
 ```
 sudo nano /etc/hosts
 ```
